@@ -52,11 +52,11 @@ init -1 python in leznotice:
     notice_list = []
 
     # Adds a new notice.
-    def new_notice(entry):
+    def new_notice(entry, image=False):
         global notice_list
 
         # If entry is a string, convert it to a Text displayable.
-        if isinstance(entry, str):
+        if isinstance(entry, str) and not image:
             entry = Text(entry, style="notice_text")
 
         # In any other case, entry should be a Displayable(-able).

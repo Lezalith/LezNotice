@@ -17,10 +17,10 @@ label lezNotice_examples:
     $ leznotice.new_notice(Text("Text displayable notice!", color = "0f0", underline = True))
     "Lezalith" "Second, a Displayable Text."
 
-    $ leznotice.new_notice("gui/window_icon.png", image = True)
+    $ leznotice.new_notice("gui/window_icon.png", image=True)
     "Lezalith" "Third, an Image Displayable from a file."
 
-    $ leznotice.new_notice("example_image", image = True)
+    $ leznotice.new_notice("example_image", image=True)
     "Lezalith" "Fourth, an Image Displayable from an image statement."
 
     $ a = DynamicDisplayable(displayable_ex_func)
