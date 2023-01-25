@@ -1,4 +1,4 @@
-###### Style and Preferences ##########################################################################################
+﻿###### Style and Preferences ##########################################################################################
 
 ### Transform of every notice.
 transform leznotice.notice_trans():
@@ -67,42 +67,28 @@ init -1 python in leznotice:
         t = time()
 
         # Add it to the list of notices being shown, with the current time recorded.
+        # This maintains increasing order of timestamps in the list
         notice_list.append((entry, t))
 
         if notice_log_add:
             print("[Notice] At the time of {}, new notice added: {}".format(t, entry))
 
     def mark_old_notices():
-        global notice_list, notice_log_remove
+        global notice_list
+
+        t = time()
 
         # Do something only when the list isn't empty.
-        for i, notice_tuple in enumerate(notice_list):
+        while notice_list and ((notice_list[0][1] + notice_time) <= t):
 
-            # Skip already marked notices.
-            if notice_tuple == (None,):
-                continue
+            if notice_log_remove:
+                print("[Notice] At the time of {}, notice marked for removal: {}".format(t, notice_list[0][0]))
 
-            # If the notice has been on for longer than notice_time, mark it as None.
-            if notice_tuple[1] + notice_time <= time():
+            notice_list.pop(0)
 
-                if notice_log_remove:
-                    print("[Notice] At the time of {}, notice marked for removal: {}".format(time(), notice_tuple[0]))
-
-                notice_list[i] = (None,)
-
-        # Check if the list now only contains None values, meaning nothing is being shown.
-        if notice_list.count((None,)) == len(notice_list):
-            clear_notices()
-
-    # Clears notice_list.
-    def clear_notices():
-        global notice_list, notice_log_clear
-        notice_list = []
-        if notice_log_clear:
-            print("[Notice] At the time of {}, the list of notices has been cleared.".format(time()))
-
-# Run clear_notices when the game (re)starts.
-define config.start_callbacks += [leznotice.clear_notices]
+        # Not really useful now, but kept in for compatibility.
+        if notice_log_remove and not notice_list:
+            print("[Notice] At the time of {}, the list of notices has been cleared.".format(t))
 
 ### Screen stuff #######
 
