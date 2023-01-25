@@ -56,7 +56,7 @@ init -1 python in leznotice:
         global notice_list, notice_log_add
 
         # If message is supposed to be an image, use the usual rules to determine name/file.
-        if image is True:
+        if image:
             message = renpy.displayable(message)
 
         # If message is a string, convert it to a Text displayable.
