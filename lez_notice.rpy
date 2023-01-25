@@ -1,8 +1,7 @@
-﻿
 ###### Style and Preferences ##########################################################################################
 
 ### Transform of every notice.
-transform notice_trans():
+transform leznotice.notice_trans():
     yoffset 30 alpha 1.0 xoffset 30
     linear 4.0  yoffset 200 alpha 0.0
 
@@ -19,16 +18,16 @@ style notice_text:
 
 # Seconds for how long the notice is guaranteed to be shown.
 # This should be equal or slightly longer than how long the transform takes.
-define notice_time = 4.5
+define leznotice.notice_time = 4.5
 
 # Seconds of how often an attempt at marking* old notice(s) is executed.
 # Should be faster if you display notices often and/or many at once.
-define notice_remove_interval = 10.0
+define leznotice.notice_remove_interval = 10.0
 
 # If True, certain print statements are ran that output to the console.
-define notice_log_add = False    # Prints whenever a new notice gets shown and what it is.
-define notice_log_remove = False # Prints whenever an old notice gets marked* to be removed and what it is.
-define notice_log_clear = False  # Prints a notification when the list is cleared of all notices.
+define leznotice.notice_log_add = False    # Prints whenever a new notice gets shown and what it is.
+define leznotice.notice_log_remove = False # Prints whenever an old notice gets marked* to be removed and what it is.
+define leznotice.notice_log_clear = False  # Prints a notification when the list is cleared of all notices.
 
 # *How removal of old notices from memory works (More technical talk):
 #
@@ -45,14 +44,16 @@ define notice_log_clear = False  # Prints a notification when the list is cleare
 # List containing all the current notices - tuple of (displayable, timestamp_when_shown)
 define notice_list = []
 
-init -1 python:
+init -1 python in leznotice:
 
     # For recording time
     from time import time
 
+    from store import Text
+
     # Adds a new notice.
     def new_notice(message, image = False):
-        global notice_list, Text, notice_log_add
+        global notice_list, notice_log_add
 
         # If message is supposed to be an image, use the usual rules to determine name/file.
         if image is True:
@@ -106,7 +107,7 @@ init -1 python:
             print("[Notice] At the time of {}, the list of notices has been cleared.".format(time()))
 
 # Run clear_notices when the game (re)starts.
-define config.start_callbacks += [clear_notices]
+define config.start_callbacks += [leznotice.clear_notices]
 
 ### Screen stuff #######
 
@@ -114,14 +115,15 @@ define config.start_callbacks += [clear_notices]
 screen notice_screen():
 
     # Timer responsible for marking and removing old notices.
-    timer store.notice_remove_interval action Function(mark_old_notices) repeat True
+    timer leznotice.notice_remove_interval action Function(leznotice.mark_old_notices) repeat True
 
     zorder 99 # Just below Ren'Py's Notify, to make sure it's not overwritten. Could be changed if needed.
     style_prefix "notice"
 
     # Display of all the notices.
-    for notice_tuple in store.notice_list:
-        frame at notice_trans:
+    for notice_tuple in leznotice.notice_list:
+        frame:
+            at leznotice.notice_trans
             add notice_tuple[0]
 
 # Make sure the screen is part of the overlay - screens on top.

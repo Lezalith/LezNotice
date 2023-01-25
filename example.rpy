@@ -11,28 +11,28 @@ label lezNotice_examples:
 
     "Lezalith" "I'm about to display some notices!"
 
-    $ new_notice("A plain notice!")
+    $ leznotice.new_notice("A plain notice!")
     "Lezalith" "First, a plain text one."
 
-    $ new_notice(Text("Text displayable notice!", color = "0f0", underline = True))
+    $ leznotice.new_notice(Text("Text displayable notice!", color = "0f0", underline = True))
     "Lezalith" "Second, a Displayable Text."
 
-    $ new_notice("gui/window_icon.png", image = True)
+    $ leznotice.new_notice("gui/window_icon.png", image = True)
     "Lezalith" "Third, an Image Displayable from a file."
 
-    $ new_notice("example_image", image = True)
+    $ leznotice.new_notice("example_image", image = True)
     "Lezalith" "Fourth, an Image Displayable from an image statement."
 
     $ a = DynamicDisplayable(displayable_ex_func)
-    $ new_notice(a)
+    $ leznotice.new_notice(a)
     "Lezalith" "Fifth, Displayable that's a bit more complex (DynamicDisplayable specifically)."
 
     "Finally, let me show a couple of notices in quick succession."
-    $ new_notice("First!")
+    $ leznotice.new_notice("First!")
     "Lezalith" "One!"
-    $ new_notice("Second!")
+    $ leznotice.new_notice("Second!")
     "Lezalith" "Two!"
-    $ new_notice("Third!")
+    $ leznotice.new_notice("Third!")
     "Lezalith" "Three!"
     "Lezalith" "Stop! It was just those three."
 
