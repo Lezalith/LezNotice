@@ -87,8 +87,19 @@ init -1 python in leznotice:
             notice_list.pop(0)
 
         # Not really useful now, but kept in for compatibility.
-        if notice_log_remove and not notice_list:
-            print("[Notice] At the time of {}, the list of notices has been cleared.".format(t))
+        if notice_log_clear:
+            clear_notices()
+
+    def clear_notices():
+        global notice_list
+
+        del notice_list[:]
+
+        if notice_log_clear:
+            print("[Notice] At the time of {}, the list of notices has been cleared.".format(time()))
+
+# Clear the notices list when the game starts.
+define config.start_callbacks += [leznotice.clear_notices]
 
 ### Screen stuff #######
 
@@ -98,7 +109,8 @@ screen notice_screen():
     # Timer responsible for marking and removing old notices.
     timer leznotice.notice_remove_interval action Function(leznotice.mark_old_notices) repeat True
 
-    zorder 99 # Just below Ren'Py's Notify, to make sure it's not overwritten. Could be changed if needed.
+    # Just below Ren'Py's Notify, to make sure it's not overwritten. Could be changed if needed.
+    zorder 99
     style_prefix "notice"
 
     # Display of all the notices.
