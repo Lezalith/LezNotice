@@ -1,5 +1,5 @@
 ﻿
-###### Stuff that can/should be changed. #########################################################################
+###### Style and Preferences ##########################################################################################
 
 ### Transform of every notice.
 transform notice_trans():
@@ -38,7 +38,7 @@ define notice_log_clear = False  # Prints a notification when the list is cleare
 # This is to improve performance while not affecting the list of notices while any
 # of them are being shown (as that messes up transforms).
 
-##################################################################################################################
+###### Code ###########################################################################################################
 
 ### Working stuff ######
 
@@ -55,7 +55,7 @@ init -1 python:
         global notice_list, Text, notice_log_add
 
         # If message is supposed to be an image, use the usual rules to determine name/file.
-        if image:
+        if image is True:
             message = renpy.displayable(message)
 
         # If message is a string, convert it to a Text displayable.
@@ -113,7 +113,7 @@ define config.start_callbacks += [clear_notices]
 # Screen displaying all the notices.
 screen notice_screen():
 
-    # timer store.notice_remove_interval action Function(remove_oldest_notice) repeat True 
+    # Timer responsible for marking and removing old notices. 
     timer store.notice_remove_interval action Function(mark_old_notices) repeat True 
 
     zorder 99 # Just below Ren'Py's Notify, to make sure it's not overwritten. Could be changed if needed.
@@ -127,7 +127,7 @@ screen notice_screen():
 # Make sure the screen is part of the overlay - screens on top.
 define config.overlay_screens += ["notice_screen"]
 
-### Example stuff ######
+####### Examples ######################################################################################################
 
 init python:
 
@@ -137,7 +137,7 @@ init python:
 
 image example_image = Solid("f80", xysize = (200, 200))
 
-label start:
+label lezNotice_examples:
     scene ex
 
     "Lezalith" "I'm about to display some notices!"
