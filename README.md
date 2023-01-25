@@ -47,9 +47,9 @@ define notice_remove_interval = 10.0
 `notice_removal_interval` is a **variable** which should be a **float**. It is the frequency at which the script tries to remove finished notices - should be lower number (more often) if you display notices often or many at once, and can be higher (less often) if not.
 
 ```py
-define notice_log_add = False    # Prints whenever a new notice gets shown and what it is.
-define notice_log_remove = False # Prints whenever an old notice gets marked* to be removed and what it is.
-define notice_log_clear = False  # Prints a notification when the list is cleared of all notices.
+define notice_log_add = False
+define notice_log_remove = False
+define notice_log_clear = False 
 ```
 Finally, there are three variables that each control a different **print** function. These messages are outputted to the console and the log.txt file. `notice_log_add` prints a message when a new notice is added and what it is. `notice_log_remove` prints a message whenever a notice (and which one) is ready to be removed. `notice_log_clear` prints a message when the list of notices becomes empty.
 

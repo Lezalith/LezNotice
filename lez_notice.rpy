@@ -130,7 +130,6 @@ define config.overlay_screens += ["notice_screen"]
 ####### Examples ######################################################################################################
 
 init python:
-
     def displayable_ex_func(st, at):
         t = round((st + 1) * 5, 3)
         return (Text(str(t)), 0.1)
