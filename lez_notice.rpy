@@ -90,12 +90,9 @@ init -1 python in leznotice:
 
                 notice_list[i] = (None,)
 
-                # Check if we're at the end of notice_list.
-                if i == len(notice_list) - 1:
-
-                    # Check if the list now only contains None values, meaning nothing is being shown.
-                    if notice_list.count((None,)) == len(notice_list):
-                        clear_notices()
+        # Check if the list now only contains None values, meaning nothing is being shown.
+        if notice_list.count((None,)) == len(notice_list):
+            clear_notices()
 
     # Clears notice_list.
     def clear_notices():
