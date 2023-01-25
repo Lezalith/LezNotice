@@ -52,27 +52,25 @@ init -1 python in leznotice:
     notice_list = []
 
     # Adds a new notice.
-    def new_notice(message, image = False):
-        global notice_list, notice_log_add
+    def new_notice(entry):
+        global notice_list
 
-        # If message is supposed to be an image, use the usual rules to determine name/file.
-        if image:
-            message = renpy.displayable(message)
+        # If entry is a string, convert it to a Text displayable.
+        if isinstance(entry, str):
+            entry = Text(entry, style="notice_text")
 
-        # If message is a string, convert it to a Text displayable.
-        elif isinstance(message, str):
-            message = Text(message, style = "notice_text")
-
-        # In any other case, message should be a Displayable.
+        # In any other case, entry should be a Displayable(-able).
+        else:
+            entry = renpy.displayable(entry)
 
         # Current timestamp.
         t = time()
 
         # Add it to the list of notices being shown, with the current time recorded.
-        notice_list.append((message, t))
+        notice_list.append((entry, t))
 
         if notice_log_add:
-            print("[Notice] At the time of {}, new notice added: {}".format(t, message))
+            print("[Notice] At the time of {}, new notice added: {}".format(t, entry))
 
     def mark_old_notices():
         global notice_list, notice_log_remove
