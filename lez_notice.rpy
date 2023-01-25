@@ -41,15 +41,15 @@ define leznotice.notice_log_clear = False  # Prints a notification when the list
 
 ### Working stuff ######
 
-# List containing all the current notices - tuple of (displayable, timestamp_when_shown)
-define notice_list = []
-
 init -1 python in leznotice:
 
     # For recording time
     from time import time
 
     from store import Text
+
+    # List containing all the current notices - tuple of (displayable, timestamp_when_shown)
+    notice_list = []
 
     # Adds a new notice.
     def new_notice(message, image = False):
