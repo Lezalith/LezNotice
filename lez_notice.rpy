@@ -113,8 +113,8 @@ define config.start_callbacks += [clear_notices]
 # Screen displaying all the notices.
 screen notice_screen():
 
-    # Timer responsible for marking and removing old notices. 
-    timer store.notice_remove_interval action Function(mark_old_notices) repeat True 
+    # Timer responsible for marking and removing old notices.
+    timer store.notice_remove_interval action Function(mark_old_notices) repeat True
 
     zorder 99 # Just below Ren'Py's Notify, to make sure it's not overwritten. Could be changed if needed.
     style_prefix "notice"
@@ -126,46 +126,3 @@ screen notice_screen():
 
 # Make sure the screen is part of the overlay - screens on top.
 define config.overlay_screens += ["notice_screen"]
-
-####### Examples ######################################################################################################
-
-init python:
-
-    def displayable_ex_func(st, at):
-        t = round((st + 1) * 5, 3)
-        return (Text(str(t)), 0.1)
-
-image example_image = Solid("f80", xysize = (200, 200))
-
-label lezNotice_examples:
-    scene ex
-
-    "Lezalith" "I'm about to display some notices!"
-
-    $ new_notice("A plain notice!")
-    "Lezalith" "First, a plain text one."
-
-    $ new_notice(Text("Text displayable notice!", color = "0f0", underline = True))
-    "Lezalith" "Second, a Displayable Text."
-
-    $ new_notice("gui/window_icon.png", image = True)
-    "Lezalith" "Third, an Image Displayable from a file."
-
-    $ new_notice("example_image", image = True)
-    "Lezalith" "Fourth, an Image Displayable from an image statement."
-
-    $ a = DynamicDisplayable(displayable_ex_func)
-    $ new_notice(a)
-    "Lezalith" "Fifth, Displayable that's a bit more complex (DynamicDisplayable specifically)."
-
-    "Finally, let me show a couple of notices in quick succession."
-    $ new_notice("First!")
-    "Lezalith" "One!"
-    $ new_notice("Second!")
-    "Lezalith" "Two!"
-    $ new_notice("Third!")
-    "Lezalith" "Three!"
-    "Lezalith" "Stop! It was just those three."
-
-    "Lezalith" "And that's it. Ready to go back?"
-    return
