@@ -114,7 +114,7 @@ screen notice_screen():
     style_prefix "notice"
 
     # Display of all the notices.
-    for notice_tuple in leznotice.notice_list:
+    for notice_tuple index notice_tuple[1] in leznotice.notice_list:
         frame:
             at leznotice.notice_trans
             add notice_tuple[0]
