@@ -87,7 +87,7 @@ init -1 python in leznotice:
             notice_list.pop(0)
 
         # Not really useful now, but kept in for compatibility.
-        if notice_log_clear:
+        if notice_log_clear and not notice_list:
             clear_notices()
 
     def clear_notices():
